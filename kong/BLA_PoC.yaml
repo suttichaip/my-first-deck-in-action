@@ -1,0 +1,802 @@
+_format_version: "1.1"
+_workspace: BLA_PoC
+services:
+- connect_timeout: 60000
+  host: httpbin.org
+  name: service1
+  path: /anything
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  write_timeout: 60000
+  routes:
+  - name: route1
+    paths:
+    - /route1
+    path_handling: v0
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    strip_path: true
+    https_redirect_status_code: 426
+    plugins:
+    - name: cors
+      config:
+        credentials: false
+        exposed_headers: null
+        headers: null
+        max_age: null
+        methods:
+        - GET
+        - HEAD
+        - PUT
+        - PATCH
+        - POST
+        - DELETE
+        - OPTIONS
+        - TRACE
+        - CONNECT
+        origins:
+        - '*'
+        preflight_continue: false
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: proxy-cache-advanced
+      config:
+        bypass_on_err: false
+        cache_control: false
+        cache_ttl: 300
+        content_type:
+        - text/plain
+        - application/json
+        memory:
+          dictionary_name: kong_db_cache
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          timeout: 2000
+        request_method:
+        - GET
+        - HEAD
+        response_code:
+        - 200
+        - 301
+        - 404
+        storage_ttl: null
+        strategy: memory
+        vary_headers: null
+        vary_query_params: null
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: rate-limiting-advanced
+      config:
+        dictionary_name: kong_rate_limiting_counters
+        header_name: null
+        hide_client_headers: false
+        identifier: consumer
+        limit:
+        - 5
+        - 30
+        namespace: 5mldH1iS4euPF4ueGluQwHO42bn5CNQ3
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          timeout: 2000
+        strategy: cluster
+        sync_rate: 5
+        window_size:
+        - 60
+        - 3600
+        window_type: sliding
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+  - name: route2
+    paths:
+    - /route2
+    path_handling: v0
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    strip_path: true
+    https_redirect_status_code: 426
+    plugins:
+    - name: jwt
+      config:
+        anonymous: null
+        claims_to_verify: null
+        cookie_names: []
+        header_names:
+        - authorization
+        key_claim_name: iss
+        maximum_expiration: 0
+        run_on_preflight: true
+        secret_is_base64: false
+        uri_param_names:
+        - jwt
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: proxy-cache-advanced
+      config:
+        bypass_on_err: false
+        cache_control: false
+        cache_ttl: 300
+        content_type:
+        - text/plain
+        - application/json
+        memory:
+          dictionary_name: kong_db_cache
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          timeout: 2000
+        request_method:
+        - GET
+        - HEAD
+        response_code:
+        - 200
+        - 301
+        - 404
+        storage_ttl: null
+        strategy: memory
+        vary_headers: null
+        vary_query_params: null
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: rate-limiting-advanced
+      config:
+        dictionary_name: kong_rate_limiting_counters
+        header_name: null
+        hide_client_headers: false
+        identifier: consumer
+        limit:
+        - 5
+        - 30
+        namespace: qy6xra4VRv588lfPzsowiyz8ruHC6lJU
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          timeout: 2000
+        strategy: cluster
+        sync_rate: 5
+        window_size:
+        - 60
+        - 3600
+        window_type: sliding
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+  - name: route4
+    paths:
+    - /route4
+    path_handling: v0
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    strip_path: true
+    https_redirect_status_code: 426
+    plugins:
+    - name: basic-auth
+      config:
+        anonymous: null
+        hide_credentials: false
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: proxy-cache-advanced
+      config:
+        bypass_on_err: false
+        cache_control: false
+        cache_ttl: 300
+        content_type:
+        - text/plain
+        - application/json
+        memory:
+          dictionary_name: kong_db_cache
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          timeout: 2000
+        request_method:
+        - GET
+        - HEAD
+        response_code:
+        - 200
+        - 301
+        - 404
+        storage_ttl: null
+        strategy: memory
+        vary_headers: null
+        vary_query_params: null
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+  - name: route5
+    paths:
+    - /route5
+    path_handling: v0
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    strip_path: true
+    https_redirect_status_code: 426
+    plugins:
+    - name: acl
+      config:
+        blacklist: null
+        hide_groups_header: false
+        whitelist:
+        - BGroup
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: key-auth
+      config:
+        anonymous: null
+        hide_credentials: false
+        key_in_body: false
+        key_names:
+        - apikey
+        run_on_preflight: true
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: proxy-cache-advanced
+      config:
+        bypass_on_err: false
+        cache_control: false
+        cache_ttl: 300
+        content_type:
+        - text/plain
+        - application/json
+        memory:
+          dictionary_name: kong_db_cache
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          timeout: 2000
+        request_method:
+        - GET
+        - HEAD
+        response_code:
+        - 200
+        - 301
+        - 404
+        storage_ttl: null
+        strategy: memory
+        vary_headers: null
+        vary_query_params: null
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+- connect_timeout: 60000
+  host: httpbin.apim.eu
+  name: service2
+  path: /anything
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  write_timeout: 60000
+  routes:
+  - name: route3
+    paths:
+    - /route3
+    path_handling: v0
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    strip_path: true
+    https_redirect_status_code: 426
+    plugins:
+    - name: jwt
+      config:
+        anonymous: null
+        claims_to_verify: null
+        cookie_names: []
+        header_names:
+        - authorization
+        key_claim_name: iss
+        maximum_expiration: 0
+        run_on_preflight: true
+        secret_is_base64: false
+        uri_param_names:
+        - jwt
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: proxy-cache
+      config:
+        cache_control: false
+        cache_ttl: 300
+        content_type:
+        - text/plain
+        - application/json
+        memory:
+          dictionary_name: kong_db_cache
+        request_method:
+        - GET
+        - HEAD
+        response_code:
+        - 200
+        - 301
+        - 404
+        storage_ttl: null
+        strategy: memory
+        vary_headers: null
+        vary_query_params: null
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: rate-limiting-advanced
+      config:
+        dictionary_name: kong_rate_limiting_counters
+        header_name: null
+        hide_client_headers: false
+        identifier: consumer
+        limit:
+        - 3
+        - 10
+        namespace: KTKlwFjksHe7FOG55iBWB727LuFVkEHh
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          timeout: 2000
+        strategy: cluster
+        sync_rate: 5
+        window_size:
+        - 60
+        - 3600
+        window_type: sliding
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+  - name: route6
+    paths:
+    - /route6
+    path_handling: v0
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    strip_path: true
+    https_redirect_status_code: 426
+    plugins:
+    - name: key-auth
+      config:
+        anonymous: null
+        hide_credentials: false
+        key_in_body: false
+        key_names:
+        - apikey
+        run_on_preflight: true
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: proxy-cache-advanced
+      config:
+        bypass_on_err: false
+        cache_control: false
+        cache_ttl: 300
+        content_type:
+        - text/plain
+        - application/json
+        memory:
+          dictionary_name: kong_db_cache
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          timeout: 2000
+        request_method:
+        - GET
+        - HEAD
+        response_code:
+        - 200
+        - 301
+        - 404
+        storage_ttl: null
+        strategy: memory
+        vary_headers: null
+        vary_query_params: null
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: rate-limiting-advanced
+      config:
+        dictionary_name: kong_rate_limiting_counters
+        header_name: null
+        hide_client_headers: false
+        identifier: consumer
+        limit:
+        - 2
+        - 10
+        namespace: OQV44dwQfoxqhzCqQEk1mLOmvkofWydm
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          timeout: 2000
+        strategy: cluster
+        sync_rate: 5
+        window_size:
+        - 60
+        - 3600
+        window_type: sliding
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+- connect_timeout: 60000
+  host: Upstream
+  name: service3
+  path: /anything
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  write_timeout: 60000
+  routes:
+  - name: route7
+    paths:
+    - /route7
+    path_handling: v0
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    strip_path: true
+    https_redirect_status_code: 426
+    plugins:
+    - name: oauth2
+      config:
+        accept_http_if_already_terminated: false
+        anonymous: null
+        auth_header_name: authorization
+        enable_authorization_code: true
+        enable_client_credentials: true
+        enable_implicit_grant: false
+        enable_password_grant: false
+        global_credentials: true
+        hide_credentials: false
+        mandatory_scope: false
+        persistent_refresh_token: false
+        provision_key: jRF5XEMcvFCxdsAjDzfV3wmFpefEe3Hx
+        refresh_token_ttl: 1.2096e+06
+        scopes: null
+        token_expiration: 7200
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: rate-limiting-advanced
+      config:
+        dictionary_name: kong_rate_limiting_counters
+        header_name: null
+        hide_client_headers: false
+        identifier: consumer
+        limit:
+        - 200
+        namespace: gSkxIYryR1q1u4W48imjd9kkiSH7vKol
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          timeout: 2000
+        strategy: cluster
+        sync_rate: 5
+        window_size:
+        - 3600
+        window_type: sliding
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+consumers:
+- custom_id: ExternalConsumer
+  username: ExternalConsumer
+  oauth2_credentials:
+  - name: ExternalConsumer
+    client_id: YICab4wjBA21OEFjBAclrkhwH4IgV7Dl
+    client_secret: hi10b8aePprABjUMX2lrF23JxMPfeIs9
+    redirect_uris:
+    - http://192.168.99.100:8000/route7
+- custom_id: InternalVendorA
+  username: InternalVendorA
+  keyauth_credentials:
+  - key: InternalVendorA.key
+  acls:
+  - group: AGroup
+- custom_id: InternalVendorB
+  username: InternalVendorB
+  keyauth_credentials:
+  - key: 2CNBKY7XuUjqK85GPEo7opW47DJoDm9G
+  acls:
+  - group: BGroup
+- custom_id: externalVendor
+  username: externalVendor
+  plugins:
+  - name: rate-limiting-advanced
+    config:
+      dictionary_name: kong_rate_limiting_counters
+      header_name: null
+      hide_client_headers: false
+      identifier: consumer
+      limit:
+      - 3
+      - 30
+      namespace: haWcTIr7VlMKOPlo62IV8Nz0NBcHS3Lh
+      redis:
+        cluster_addresses: null
+        database: 0
+        host: null
+        password: null
+        port: null
+        sentinel_addresses: null
+        sentinel_master: null
+        sentinel_password: null
+        sentinel_role: null
+        timeout: 2000
+      strategy: cluster
+      sync_rate: 5
+      window_size:
+      - 60
+      - 3600
+      window_type: sliding
+    enabled: true
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  basicauth_credentials:
+  - username: externalVendor
+    password: 772cca707b75dac1395e8a148e86f6a961419efa
+- custom_id: internalTeamB
+  username: internalTeamB
+  jwt_secrets:
+  - algorithm: HS256
+    key: XwQN9KoTqVLxs03dLtpLNgIYG02UmrNz
+    secret: qUVGp3XGFP4xLQzzyBxsPCsdtJEhWjV1
+- custom_id: internalTeamBLimit
+  username: internalTeamBLimit
+  plugins:
+  - name: rate-limiting-advanced
+    config:
+      dictionary_name: kong_rate_limiting_counters
+      header_name: null
+      hide_client_headers: false
+      identifier: consumer
+      limit:
+      - 1
+      - 5
+      namespace: Ta9ptOrzPk72o1Az1iB5dxih4UZulrYV
+      redis:
+        cluster_addresses: null
+        database: 0
+        host: null
+        password: null
+        port: null
+        sentinel_addresses: null
+        sentinel_master: null
+        sentinel_password: null
+        sentinel_role: null
+        timeout: 2000
+      strategy: cluster
+      sync_rate: 5
+      window_size:
+      - 60
+      - 3600
+      window_type: sliding
+    enabled: true
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  jwt_secrets:
+  - algorithm: HS256
+    key: VmdvtNOxrf2I31ACP6fmaAZGJkn4aXyt
+    secret: C4yW01n6532KDIWuXeO4WeNNtcgVSGuD
+upstreams:
+- name: Upstream
+  algorithm: round-robin
+  slots: 10000
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      type: http
+      timeout: 1
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        tcp_failures: 0
+        timeouts: 0
+        interval: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+  hash_on: none
+  hash_fallback: none
+  hash_on_cookie_path: /
+  targets:
+  - target: httpbin.apim.eu:80
+    weight: 100
+  - target: httpbin.org:80
+    weight: 100
