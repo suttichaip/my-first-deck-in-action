@@ -1,13 +1,13 @@
 name: Sync
- 
+
 on:
   push:
     branches: [ master ]
- 
+
 jobs:
   build:
     runs-on: ubuntu-latest
- 
+
     steps:
     - uses: actions/checkout@v2
       name: "checkout"
@@ -22,12 +22,13 @@ jobs:
       uses: ./
       with:
         command: "validate"
-        options: "--kong-addr ${{ secrets.KONG_ADDR }} --headers ${{ secrets.KONG_HEADERS }}" 
+        options: "--kong-addr ${{ secrets.KONG_ADDR }} --headers ${{ secrets.KONG_HEADERS }}"
         kong_workspaces: "kong"
     - name: decK sync
       id: decK_sync
       uses: ./
       with:
         command: "sync"
-        options: "--kong-addr ${{ secrets.KONG_ADDR }} --headers ${{ secrets.KONG_HEADERS }}" 
+        options: "--kong-addr ${{ secrets.KONG_ADDR }} --headers ${{ secrets.KONG_HEADERS }}"
         kong_workspaces: "kong"
+
