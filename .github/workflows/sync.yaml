@@ -27,8 +27,6 @@ jobs:
     - name: decK sync
       id: decK_sync
       uses: ./
-      env:
-        ENV_URL: "http://f6ab47782e64.ngrok.io"
       with:
         command: "sync"
         options: "--kong-addr ${{ secrets.KONG_ADDR }} --headers ${{ secrets.KONG_HEADERS }}"
