@@ -3,7 +3,7 @@ _workspace: BLA_PoC
 services:
 - connect_timeout: 60000
   host: httpbin.org
-  name: service
+  name: service_BLA
   path: /anything
   port: 80
   protocol: http
