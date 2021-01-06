@@ -1,0 +1,189 @@
+_format_version: "1.1"
+_workspace: Internal
+services:
+- connect_timeout: 60000
+  host: 67b6b1c6-28ea-41ab-a0d6-0c192f8e682d.mock.pstmn.io
+  name: Service1
+  path: /Soap2Rest/Service1.svc
+  port: 443
+  protocol: https
+  read_timeout: 60000
+  retries: 5
+  write_timeout: 60000
+  routes:
+  - name: route3
+    paths:
+    - /route3
+    path_handling: v0
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    strip_path: true
+    https_redirect_status_code: 426
+    plugins:
+    - name: basic-auth
+      config:
+        anonymous: null
+        hide_credentials: false
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: key-auth
+      config:
+        anonymous: null
+        hide_credentials: false
+        key_in_body: false
+        key_names:
+        - apikey
+        run_on_preflight: true
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - name: rate-limiting-advanced
+      config:
+        dictionary_name: kong_rate_limiting_counters
+        header_name: null
+        hide_client_headers: false
+        identifier: consumer
+        limit:
+        - 5
+        - 30
+        namespace: SyZXubjcNAafHvntPSMtV6EJBi1OQOBy
+        redis:
+          cluster_addresses: null
+          database: 0
+          host: null
+          password: null
+          port: null
+          sentinel_addresses: null
+          sentinel_master: null
+          sentinel_password: null
+          sentinel_role: null
+          server_name: null
+          ssl: false
+          ssl_verify: false
+          timeout: 2000
+        strategy: cluster
+        sync_rate: 5
+        window_size:
+        - 60
+        - 3600
+        window_type: sliding
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+- connect_timeout: 60000
+  host: httpbin.org
+  name: Service2
+  path: /anything
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  write_timeout: 60000
+  routes:
+  - name: route2
+    paths:
+    - /route2
+    path_handling: v0
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    strip_path: true
+    https_redirect_status_code: 426
+    plugins:
+    - name: ldap-auth-advanced
+      config:
+        anonymous: ""
+        attribute: uid
+        base_dn: cn=ro_admin,ou=sysadmins,dc=zflexsoftware,dc=com
+        bind_dn: null
+        cache_ttl: 60
+        consumer_by:
+        - username
+        - custom_id
+        consumer_optional: false
+        group_base_dn: null
+        group_member_attribute: memberOf
+        group_name_attribute: null
+        header_type: ldap
+        hide_credentials: false
+        keepalive: 60000
+        ldap_host: 'www.zflexldap.com '
+        ldap_password: null
+        ldap_port: 389
+        ldaps: false
+        start_tls: false
+        timeout: 10000
+        verify_ldap_host: false
+      enabled: true
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+consumers:
+- username: ConsumerA
+  keyauth_credentials:
+  - key: OxZZYvMXrSevAkGNEEbepSetx5wZw925
+  basicauth_credentials:
+  - username: ConsumerA
+    password: a99d4e3276dace839f4ec9de9bc2d7a76091a217
+  acls:
+  - group: AGroup
+- username: ConsumerB
+  plugins:
+  - name: rate-limiting-advanced
+    config:
+      dictionary_name: kong_rate_limiting_counters
+      header_name: null
+      hide_client_headers: false
+      identifier: consumer
+      limit:
+      - 3
+      - 30
+      namespace: VHIMs0EvaLPU4HeFvFYa2NhcpPHq9GKa
+      redis:
+        cluster_addresses: null
+        database: 0
+        host: null
+        password: null
+        port: null
+        sentinel_addresses: null
+        sentinel_master: null
+        sentinel_password: null
+        sentinel_role: null
+        server_name: null
+        ssl: false
+        ssl_verify: false
+        timeout: 2000
+      strategy: cluster
+      sync_rate: 5
+      window_size:
+      - 60
+      - 3600
+      window_type: sliding
+    enabled: true
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+  keyauth_credentials:
+  - key: ConsumerB.key
+  basicauth_credentials:
+  - username: ConsumerB
+    password: d557a3dd69164c01e226c8a4f0468d6063759d3a
+  acls:
+  - group: BGroup
